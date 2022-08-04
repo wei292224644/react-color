@@ -93,11 +93,9 @@ export class ChromeFields extends React.Component {
   }
 
   showHighlight = (e) => {
-    e.currentTarget.style.background = '#eee'
   }
 
   hideHighlight = (e) => {
-    e.currentTarget.style.background = 'transparent'
   }
 
   render() {
@@ -161,7 +159,7 @@ export class ChromeFields extends React.Component {
           marginTop: '12px',
         },
         svg: {
-          fill: '#333',
+          fill: 'white',
           width: '24px',
           height: '24px',
           border: '1px transparent solid',

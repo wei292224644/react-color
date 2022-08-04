@@ -30,12 +30,12 @@ export const SketchFields = ({ onChange, rgb, hsl, hex, disableAlpha }) => {
         border: 'none',
         boxShadow: 'inset 0 0 0 1px #ccc',
         fontSize: '11px',
+        color: '#222',
       },
       label: {
         display: 'block',
         textAlign: 'center',
         fontSize: '11px',
-        color: '#222',
         paddingTop: '3px',
         paddingBottom: '4px',
         textTransform: 'capitalize',

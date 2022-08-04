@@ -7,9 +7,11 @@ import { ColorWrap, Saturation, Hue, Alpha, Checkboard } from '../common'
 import ChromeFields from './ChromeFields'
 import ChromePointer from './ChromePointer'
 import ChromePointerCircle from './ChromePointerCircle'
+import SketchPresetColors from '../sketch/SketchPresetColors'
 
-export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, renderers,
+export const Chrome = ({ width, onChange, onSwatchHover, disableAlpha, presetColors, rgb, hsl, hsv, hex, renderers,
   styles: passedStyles = {}, className = '', defaultView }) => {
+
   const styles = reactCSS(merge({
     'default': {
       picker: {
@@ -31,27 +33,27 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
         radius: '2px 2px 0 0',
       },
       body: {
-        padding: '16px 16px 12px',
+        padding: '12px 10px',
       },
       controls: {
         display: 'flex',
       },
       color: {
-        width: '32px',
+        width: '40px',
       },
       swatch: {
-        marginTop: '6px',
-        width: '16px',
-        height: '16px',
-        borderRadius: '8px',
+        marginTop: '3px',
+        width: '22px',
+        height: '22px',
+        borderRadius: '2px',
         position: 'relative',
         overflow: 'hidden',
       },
       active: {
         absolute: '0px 0px 0px 0px',
-        borderRadius: '8px',
+        borderRadius: '2px',
         boxShadow: 'inset 0 0 0 1px rgba(0,0,0,.1)',
-        background: `rgba(${ rgb.r }, ${ rgb.g }, ${ rgb.b }, ${ rgb.a })`,
+        background: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`,
         zIndex: '2',
       },
       toggles: {
@@ -72,6 +74,7 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
       Alpha: {
         radius: '2px',
       },
+      ...passedStyles
     },
     'disableAlpha': {
       color: {
@@ -92,52 +95,57 @@ export const Chrome = ({ width, onChange, disableAlpha, rgb, hsl, hsv, hex, rend
   }, passedStyles), { disableAlpha })
 
   return (
-    <div style={ styles.picker } className={ `chrome-picker ${ className }` }>
-      <div style={ styles.saturation }>
+    <div style={styles.picker} className={`chrome-picker ${className}`}>
+      <div style={styles.saturation}>
         <Saturation
-          style={ styles.Saturation }
-          hsl={ hsl }
-          hsv={ hsv }
-          pointer={ ChromePointerCircle }
-          onChange={ onChange }
+          style={styles.Saturation}
+          hsl={hsl}
+          hsv={hsv}
+          pointer={ChromePointerCircle}
+          onChange={onChange}
         />
       </div>
-      <div style={ styles.body }>
-        <div style={ styles.controls } className="flexbox-fix">
-          <div style={ styles.color }>
-            <div style={ styles.swatch }>
-              <div style={ styles.active } />
-              <Checkboard renderers={ renderers } />
+      <div style={styles.body}>
+        <div style={styles.controls} className="flexbox-fix">
+          <div style={styles.color}>
+            <div style={styles.swatch}>
+              <div style={styles.active} />
+              <Checkboard  renderers={renderers} />
             </div>
           </div>
-          <div style={ styles.toggles }>
-            <div style={ styles.hue }>
+          <div style={styles.toggles}>
+            <div style={styles.hue}>
               <Hue
-                style={ styles.Hue }
-                hsl={ hsl }
-                pointer={ ChromePointer }
-                onChange={ onChange }
+                style={styles.Hue}
+                hsl={hsl}
+                pointer={ChromePointer}
+                onChange={onChange}
               />
             </div>
-            <div style={ styles.alpha }>
+            <div style={styles.alpha}>
               <Alpha
-                style={ styles.Alpha }
-                rgb={ rgb }
-                hsl={ hsl }
-                pointer={ ChromePointer }
-                renderers={ renderers }
-                onChange={ onChange }
+                style={styles.Alpha}
+                rgb={rgb}
+                hsl={hsl}
+                pointer={ChromePointer}
+                renderers={renderers}
+                onChange={onChange}
               />
             </div>
           </div>
         </div>
         <ChromeFields
-          rgb={ rgb }
-          hsl={ hsl }
-          hex={ hex }
-          view={ defaultView }
-          onChange={ onChange }
-          disableAlpha={ disableAlpha }
+          rgb={rgb}
+          hsl={hsl}
+          hex={hex}
+          view={defaultView}
+          onChange={onChange}
+          disableAlpha={disableAlpha}
+        />
+        <SketchPresetColors
+          colors={presetColors}
+          onClick={onChange}
+          onSwatchHover={onSwatchHover}
         />
       </div>
     </div>
@@ -159,6 +167,9 @@ Chrome.defaultProps = {
   width: 225,
   disableAlpha: false,
   styles: {},
+  presetColors: ['#D0021B', '#F5A623', '#F8E71C', '#8B572A', '#7ED321', '#417505',
+    '#BD10E0', '#9013FE', '#4A90E2', '#50E3C2', '#B8E986', '#000000',
+    '#4A4A4A', '#9B9B9B', '#FFFFFF'],
 }
 
 export default ColorWrap(Chrome)

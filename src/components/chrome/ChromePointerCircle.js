@@ -7,8 +7,9 @@ export const ChromePointerCircle = () => {
       picker: {
         width: '12px',
         height: '12px',
-        borderRadius: '6px',
-        boxShadow: 'inset 0 0 0 1px #fff',
+        borderRadius:"6px",
+        background:"black",
+        border: '1px solid #fff',
         transform: 'translate(-6px, -6px)',
       },
     },
