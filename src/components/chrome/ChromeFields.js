@@ -14,11 +14,13 @@ export class ChromeFields extends React.Component {
 
     if (props.hsl.a !== 1 && props.view === "hex") {
       this.state = {
-        view: "rgb"
+        view: "rgb",
+        onViewChange: props.onViewChange
       };
     } else {
       this.state = {
         view: props.view,
+        onViewChange: props.onViewChange
       }
     }
   }
@@ -31,17 +33,20 @@ export class ChromeFields extends React.Component {
   }
 
   toggleViews = () => {
+    let view = this.state.view;
     if (this.state.view === 'hex') {
-      this.setState({ view: 'rgb' })
+      view = "rgb";
     } else if (this.state.view === 'rgb') {
-      this.setState({ view: 'hsl' })
+      view = "hsl";
     } else if (this.state.view === 'hsl') {
       if (this.props.hsl.a === 1) {
-        this.setState({ view: 'hex' })
+        view = "hex";
       } else {
-        this.setState({ view: 'rgb' })
+        view = "rgb";
       }
     }
+    this.setState({ view });
+    this.state.onViewChange && this.state.onViewChange(view);
   }
 
   handleChange = (data, e) => {
@@ -73,8 +78,8 @@ export class ChromeFields extends React.Component {
       }, e)
     } else if (data.h || data.s || data.l) {
       // Remove any occurances of '%'.
-      if (typeof(data.s) === 'string' && data.s.includes('%')) { data.s = data.s.replace('%', '') }
-      if (typeof(data.l) === 'string' && data.l.includes('%')) { data.l = data.l.replace('%', '') }
+      if (typeof (data.s) === 'string' && data.s.includes('%')) { data.s = data.s.replace('%', '') }
+      if (typeof (data.l) === 'string' && data.l.includes('%')) { data.l = data.l.replace('%', '') }
 
       // We store HSL as a unit interval so we need to override the 1 input to 0.01
       if (data.s == 1) {
@@ -175,99 +180,99 @@ export class ChromeFields extends React.Component {
 
     let fields
     if (this.state.view === 'hex') {
-      fields = (<div style={ styles.fields } className="flexbox-fix">
-        <div style={ styles.field }>
+      fields = (<div style={styles.fields} className="flexbox-fix">
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
-            label="hex" value={ this.props.hex }
-            onChange={ this.handleChange }
+            label="hex" value={this.props.hex}
+            onChange={this.handleChange}
           />
         </div>
       </div>)
     } else if (this.state.view === 'rgb') {
-      fields = (<div style={ styles.fields } className="flexbox-fix">
-        <div style={ styles.field }>
+      fields = (<div style={styles.fields} className="flexbox-fix">
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="r"
-            value={ this.props.rgb.r }
-            onChange={ this.handleChange }
+            value={this.props.rgb.r}
+            onChange={this.handleChange}
           />
         </div>
-        <div style={ styles.field }>
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="g"
-            value={ this.props.rgb.g }
-            onChange={ this.handleChange }
+            value={this.props.rgb.g}
+            onChange={this.handleChange}
           />
         </div>
-        <div style={ styles.field }>
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="b"
-            value={ this.props.rgb.b }
-            onChange={ this.handleChange }
+            value={this.props.rgb.b}
+            onChange={this.handleChange}
           />
         </div>
-        <div style={ styles.alpha }>
+        <div style={styles.alpha}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="a"
-            value={ this.props.rgb.a }
-            arrowOffset={ 0.01 }
-            onChange={ this.handleChange }
+            value={this.props.rgb.a}
+            arrowOffset={0.01}
+            onChange={this.handleChange}
           />
         </div>
       </div>)
     } else if (this.state.view === 'hsl') {
-      fields = (<div style={ styles.fields } className="flexbox-fix">
-        <div style={ styles.field }>
+      fields = (<div style={styles.fields} className="flexbox-fix">
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="h"
-            value={ Math.round(this.props.hsl.h) }
-            onChange={ this.handleChange }
+            value={Math.round(this.props.hsl.h)}
+            onChange={this.handleChange}
           />
         </div>
-        <div style={ styles.field }>
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="s"
-            value={ `${ Math.round(this.props.hsl.s * 100) }%` }
-            onChange={ this.handleChange }
+            value={`${Math.round(this.props.hsl.s * 100)}%`}
+            onChange={this.handleChange}
           />
         </div>
-        <div style={ styles.field }>
+        <div style={styles.field}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="l"
-            value={ `${ Math.round(this.props.hsl.l * 100) }%` }
-            onChange={ this.handleChange }
+            value={`${Math.round(this.props.hsl.l * 100)}%`}
+            onChange={this.handleChange}
           />
         </div>
-        <div style={ styles.alpha }>
+        <div style={styles.alpha}>
           <EditableInput
             style={{ input: styles.input, label: styles.label }}
             label="a"
-            value={ this.props.hsl.a }
-            arrowOffset={ 0.01 }
-            onChange={ this.handleChange }
+            value={this.props.hsl.a}
+            arrowOffset={0.01}
+            onChange={this.handleChange}
           />
         </div>
       </div>)
     }
 
     return (
-      <div style={ styles.wrap } className="flexbox-fix">
-        { fields }
-        <div style={ styles.toggle }>
-          <div style={ styles.icon } onClick={ this.toggleViews } ref={ (icon) => this.icon = icon }>
+      <div style={styles.wrap} className="flexbox-fix">
+        {fields}
+        <div style={styles.toggle}>
+          <div style={styles.icon} onClick={this.toggleViews} ref={(icon) => this.icon = icon}>
             <UnfoldMoreHorizontalIcon
-              style={ styles.svg }
-              onMouseOver={ this.showHighlight }
-              onMouseEnter={ this.showHighlight }
-              onMouseOut={ this.hideHighlight }
+              style={styles.svg}
+              onMouseOver={this.showHighlight}
+              onMouseEnter={this.showHighlight}
+              onMouseOut={this.hideHighlight}
             />
           </div>
         </div>

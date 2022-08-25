@@ -1,20 +1,20 @@
 {
-  "name": "react-color",
+  "name": "wrct-color",
   "version": "2.19.3",
   "description": "A Collection of Color Pickers from Sketch, Photoshop, Chrome & more",
   "main": "lib/index.js",
   "module": "es/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/casesandberg/react-color.git"
+    "url": "git+https://github.com/wei292224644/react-color.git"
   },
-  "author": "case <case@casesandberg.com>",
+  "author": "wei292224644 <wei292224644@live.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/casesandberg/react-color/issues"
+    "url": "https://github.com/wei292224644/react-color/issues"
   },
   "scripts": {
-    "test": "npm run jest && npm run eslint", 
+    "test": "npm run jest && npm run eslint",
     "jest": "jest",
     "eslint": "eslint src/**/*.js",
     "lib": "npm run clean-lib && babel src -d lib",
@@ -30,15 +30,15 @@
     "chromatic": "chromatic --project-token=9z2kaxsuz"
   },
   "sideEffects": false,
-  "homepage": "http://casesandberg.github.io/react-color/",
+  "homepage": "http://wei292224644.github.io/react-color/",
   "keywords": [
     "react",
-    "color picker", 
+    "color picker",
     "react-component",
     "colorpicker",
     "picker",
     "sketch",
-    "chrome", 
+    "chrome",
     "photoshop",
     "material design",
     "popup"
@@ -60,7 +60,7 @@
     "@storybook/addon-knobs": "^3.2.0",
     "@storybook/addon-options": "^3.2.4",
     "@storybook/react": "^3.2.4",
-    "babel-cli": "^6.8.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.10.4",
     "babel-jest": "^20.0.3",
     "babel-loader": "^6.2.1",
